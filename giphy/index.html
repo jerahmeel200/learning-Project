@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <input id="searchInput" type="text">
+<button id="searchButton">search</button>
+    <img id="img" src="#" alt="cat">
+    
+    <script>
+
+        const img = document.getElementById("img")
+        const searchInput = document.getElementById("searchInput")
+        const searchBtutton = document.getElementById('searchButton')
+
+        searchBtutton.addEventListener("click", function(){
+           const searchTerm = searchInput.value.trim("") 
+
+           if (searchTerm){
+            
+           
+
+            fetch(`https://api.giphy.com/v1/gifs/translate?api_key=yDo8ddGBs5kk6PqEXvN5xRH5nVEBjsdN&s=${searchTerm}`, { mode: "cors" })
+    .then(function(response){
+        return response.json()
+    })
+    
+        .then(function(response){
+            img.src = response.data.images.original.url;
+            img.alt = response.data.title || searchTerm;
+        console.log(response)
+    }).catch(
+        console.log("failed")
+    )
+
+}else{
+    alert("input something")
+}
+        })
+     
+    
+    </script>
+</body>
+</html>
