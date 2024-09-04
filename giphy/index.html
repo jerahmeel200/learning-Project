@@ -17,25 +17,24 @@
         const searchInput = document.getElementById("searchInput")
         const searchBtutton = document.getElementById('searchButton')
 
-        searchBtutton.addEventListener("click", function(){
-           const searchTerm = searchInput.value.trim("") 
-
-           if (searchTerm){
+         searchBtutton.addEventListener("click", async function(){
+           const searchTerm = searchInput.value.trim() 
+       if (searchTerm){
             
-           
-
-            fetch(`https://api.giphy.com/v1/gifs/translate?api_key=yDo8ddGBs5kk6PqEXvN5xRH5nVEBjsdN&s=${searchTerm}`, { mode: "cors" })
-    .then(function(response){
-        return response.json()
-    })
+           try {
+          const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=yDo8ddGBs5kk6PqEXvN5xRH5nVEBjsdN&s=${searchTerm}`, { mode: "cors" })
     
-        .then(function(response){
-            img.src = response.data.images.original.url;
-            img.alt = response.data.title || searchTerm;
-        console.log(response)
-    }).catch(
-        console.log("failed")
-    )
+        const data = await response.json()
+   
+    img.src = data.data.images.original.url;
+            img.alt = data.data.title || searchTerm;
+        console.log(data)
+           } catch (error) {
+            console.log("failed to get gif")
+           }
+
+   
+     
 
 }else{
     alert("input something")
