@@ -26,12 +26,36 @@ document.getElementById("weatherform").addEventListener("submit", function(e){
 
 function displayData(data){
     const displayDiv =  document.getElementById("weatherData")
+    const condition = data.currentConditions.conditions.toLowerCase()
+
+    const iconClass = getWeatherIcon(condition)
+
 
     displayDiv.innerHTML=`
-    
+
        <h2>Weather for ${data.address}</h2>
+       <i id="weatherIcon"  class="wi ${iconClass}"></i>
                 <p>Temperature: ${data.currentConditions.temp} °C</p>
                 <p>Condition: ${data.currentConditions.conditions}</p>
                 <p>Humidity: ${data.currentConditions.humidity}%</p>
     `
 }
+
+
+
+function getWeatherIcon(condition){
+    if (condition.includes("clear")){
+        return "wi-day-sunny"
+    }else if(condition.includes("cloudy")){
+        return "wi-cloudy"
+    }else if (condition.includes("rain")){
+        return "wi-rain"
+    }else if (condition.includes("snow")){
+        return "wi-snow"
+    }else if (condition.includes("fog")){
+        return "wi-fog"
+    }else{
+        return "wi-na"
+    }
+}
+
