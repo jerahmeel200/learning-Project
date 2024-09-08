@@ -34,3 +34,16 @@
 //   }
   
 //   console.log(fibs(8));  // Output: [0, 1, 1, 2, 3, 5, 8, 13]
+
+function fibRec(n){
+    if(n<=0) return []
+    if(n===1) return [0]
+    if(n===2) return [0,1]
+
+    const sequance = fibRec(n - 1)
+sequance.push(sequance[sequance.length - 1] + sequance[sequance.length - 2])
+return sequance
+}
+
+
+console.log("recursion",fibRec(5))
