@@ -47,3 +47,48 @@ return sequance
 
 
 console.log("recursion",fibRec(5))
+
+
+
+
+function mergeSort (arr){
+    // base case
+    if(arr.length <= 1){
+        return arr
+    }
+
+// split the array into two halves
+  // Split the array into two halves
+  const middle = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, middle));
+  const right = mergeSort(arr.slice(middle));
+
+  // Merge the two sorted halves
+  return merge(left, right);
+
+}
+
+const merge = (left, right) =>{
+    let result = []
+    let i = 0
+    let j = 0
+
+
+    while (i < left.length &&  j < right.length){
+        if(left[i] < right[j]){
+            result.push(left[i])
+            i++
+        }else{
+            result.push(left[j])
+            j++
+        }
+    }
+
+
+    return [...result, ...left.slice(i), ...right.slice(j)]
+}
+
+
+// Test cases
+console.log(mergeSort([3, 2, 1, 13, 8, 5, 0, 1]));  // Output: [0, 1, 1, 2, 3, 5, 8, 13]
+console.log(mergeSort([105, 79, 100, 110]));
