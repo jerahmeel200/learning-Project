@@ -1,6 +1,7 @@
 "use client"
 
 import Header from '@/components/ui/header';
+import Hero from '@/components/ui/hero';
 import React from 'react';
 
 interface Props {
@@ -11,6 +12,7 @@ const HomePage: React.FC<Props> = () => {
     return (
       <>
       <Header/>
+      <Hero/>
         <div className="min-h-screen">
         <header className=" p-4 shadow-md md:flex md:items-center md:justify-between">
           <h1 className="text-xl font-bold">My Web App</h1>
