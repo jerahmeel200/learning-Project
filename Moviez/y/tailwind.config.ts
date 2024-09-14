@@ -12,6 +12,10 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        'pp-mori': 'var(--font-pp-mori)',
+        eudoxus: 'var(--font-eudoxus)',
+    },
     },
   },
   plugins: [],
