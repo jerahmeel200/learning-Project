@@ -35,7 +35,7 @@ const Hero: React.FC = () => {
   useEffect(() => {
     const slideInterval = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-      console.log("hello");
+    
     }, 5000);
 
     return () => clearInterval(slideInterval);
@@ -52,7 +52,7 @@ const Hero: React.FC = () => {
   };
   return (
     <div className="bg-red-700 relative w-[100%] overflow-hidden mx-auto ">
-      <div className="relative h-[400px]">
+      <div className="relative h-[400px]  `">
         {slides.map((slide, index) => (
           <div
             key={slide.id}
