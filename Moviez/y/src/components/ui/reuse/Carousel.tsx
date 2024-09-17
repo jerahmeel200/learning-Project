@@ -87,7 +87,7 @@ const Carousel: React.FC<CarouselProps> = ({ products }) => {
               alt={product.title}
               className="w-full h-64 object-cover rounded-lg"
             />
-            <h3 className="mt-2 text-sm font-medium text-center">{product.title}</h3>
+            <h3 className="mt-2 text-[16px] text-[#FFD700] font-medium ">{product.title}</h3>
           </div>
         ))}
       </Slider>
