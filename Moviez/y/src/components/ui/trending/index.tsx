@@ -59,8 +59,10 @@ export default function Home() {
   return (
     <>
     <div className="px-10 py-5  mx-auto max-w-[1920px]">
-     
+     <div className="ml-4">
     <Title text="Trending"/>
+
+     </div>
     
 
       <Carousel products={products} />
