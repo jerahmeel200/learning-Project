@@ -3,14 +3,15 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css"; // Import slick carousel CSS
 
-interface Product {
+interface Movies {
   id: number;
   title: string;
   imageUrl: string;
+  poster_path: string
 }
 
 interface CarouselProps {
-  products: Product[];
+  movies: Movies[];
 }
 
 const PrevArrow = (props: any) => {
@@ -39,7 +40,7 @@ const NextArrow = (props: any) => {
   );
 };
 
-const Carousel: React.FC<CarouselProps> = ({ products }) => {
+const Carousel: React.FC<CarouselProps> = ({ movies }) => {
   const settings = {
     dots: true,
     infinite: false,
@@ -80,14 +81,13 @@ const Carousel: React.FC<CarouselProps> = ({ products }) => {
   return (
     <div className="slider-container">
       <Slider {...settings}>
-        {products.map((product) => (
-          <div key={product.id} className="p-4">
+        {movies.map((movie) => (
+          <div key={movie.id} className="p-4">
             <img
-              src={product.imageUrl}
-              alt={product.title}
-              className="w-full h-64 object-cover rounded-lg"
+              src={`https://image.tmdb.org/t/p/w200${movie.poster_path} `} alt={movie.title}
+              className="w-full h-64  rounded-lg"
             />
-            <h3 className="mt-2 text-[16px] text-[#FFD700] font-medium ">{product.title}</h3>
+            <h3 className="mt-2 text-[16px] text-[#FFD700] font-medium ">{movie.title}</h3>
           </div>
         ))}
       </Slider>
