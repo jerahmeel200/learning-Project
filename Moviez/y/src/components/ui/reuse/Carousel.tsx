@@ -84,7 +84,7 @@ const Carousel: React.FC<CarouselProps> = ({ movies }) => {
         {movies.map((movie) => (
           <div key={movie.id} className="p-4">
             <img
-              src={`https://image.tmdb.org/t/p/w200${movie.poster_path} `} alt={movie.title}
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path} `} alt={movie.title}
               className="w-full h-64  rounded-lg"
             />
             <h3 className="mt-2 text-[16px] text-[#FFD700] font-medium ">{movie.title}</h3>
