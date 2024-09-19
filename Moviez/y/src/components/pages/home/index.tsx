@@ -1,5 +1,6 @@
 "use client"
 
+import Footer from '@/components/ui/footer';
 import Header from '@/components/ui/header';
 import Hero from '@/components/ui/hero';
 import Trending from '@/components/ui/trending';
@@ -15,6 +16,7 @@ const HomePage: React.FC<Props> = () => {
       <Header/>
       <Hero/>
       <Trending/>
+      <Footer/>
       
       
       </>
