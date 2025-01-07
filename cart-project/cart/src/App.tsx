@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import productImage from "./assets/image.jpg";
 
 import "./App.css";
 import Header from "./components/Header";
@@ -9,7 +10,8 @@ import Products from "./components/Products";
 function App() {
   type Product = {
     id: number;
-    name: string;
+    image: string;
+    title: string;
     price: number;
   };
 
@@ -17,14 +19,25 @@ function App() {
     quantity: number;
   };
 
-  const products: Product[] = [
-    { id: 1, name: "Product 1", price: 10 },
-    { id: 2, name: "Product 2", price: 20 },
-    { id: 3, name: "Product 3", price: 15 },
-  ];
-
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [data, setData] = useState<Product[]>([]);
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch("https://fakestoreapi.com/products");
+        const parsedData = await response.json();
+        setData(parsedData);
+      } catch (error) {
+        console.log("error detching products", error);
+      }
+    };
+
+    fetchProduct();
+  }, []);
+
+  console.log("data", data);
 
   const handleQuantityChange = (id: number, value: string) => {
     const quantity = parseInt(value, 10);
@@ -34,22 +47,22 @@ function App() {
     }
   };
 
-  const addToCart = (product: Product) => {
-    const quantity = quantities[product.id] || 1;
+  const addToCart = (data: Product) => {
+    const quantity = quantities[data.id] || 1;
 
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === product.id);
+      const existingItem = prevItems.find((item) => item.id === data.id);
 
       if (existingItem) {
         return prevItems.map((item) =>
-          item.id === product.id
+          item.id === data.id
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       }
-      return [...prevItems, { ...product, quantity }];
+      return [...prevItems, { ...data, quantity }];
     });
-    setQuantities({ ...quantities, [product.id]: 1 });
+    setQuantities({ ...quantities, [data.id]: 1 });
   };
 
   const removeFromCart = (productId: number) => {
@@ -72,43 +85,40 @@ function App() {
   };
 
   console.log("addToCart", cartItems);
-
+  const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   return (
-    <>
-      <Header />
+    <div className="max-w-[1700px] mx-auto">
+      <Header totalQuantity={totalQuantity}/>
       <Routes>
-  <Route
-    path="/shop"
-    element={
-      <div>
-        <h1>Products</h1>
-        <ul>
-          {products.map((product) => (
-            <li key={product.id}>
-              <Products
-                product={product}
-                handleQuantityChange={handleQuantityChange}
-                addToCart={addToCart}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
-    }
-  />
-  <Route
-    path="/cart"
-    element={
-      <Cart
-        cartItems={cartItems}
-        removeFromCart={removeFromCart}
-        updateQuantity={updateQuantity}
-      />
-    }
-  />
-</Routes>
-
-    </>
+        <Route
+          path="/shop"
+          element={
+            <>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 px-[40px] py-[30px]">
+                {data.map((product) => (
+                  <Products
+                    key={product.id} // Add a unique key for React
+                    product={product}
+                    handleQuantityChange={handleQuantityChange}
+                    addToCart={addToCart}
+                  />
+                ))}
+              </div>
+            </>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <Cart
+              cartItems={cartItems}
+              removeFromCart={removeFromCart}
+              updateQuantity={updateQuantity}
+            />
+          }
+        />
+      </Routes>
+    </div>
   );
 }
 
